@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">NFC Switcher</string>
+    <string name="wallet_open">Открыть NFC Switcher</string>
+</resources>

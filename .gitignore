@@ -1,0 +1,21 @@
+# Gradle / Android
+.gradle/
+build/
+**/build/
+local.properties
+*.iml
+
+# Android Studio
+.idea/
+
+# macOS
+.DS_Store
+
+# Temporary local workspaces and device dumps
+work/
+outputs/
+scripts/
+
+# APKs generated locally
+*.apk
+*.ap_

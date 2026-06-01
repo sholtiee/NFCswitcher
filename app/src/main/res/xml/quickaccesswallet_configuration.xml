@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<quickaccesswallet-service xmlns:android="http://schemas.android.com/apk/res/android"
+    android:settingsActivity="dev.codex.nfcswitcher.MainActivity"
+    android:shortcutLongLabel="@string/wallet_open"
+    android:shortcutShortLabel="@string/wallet_open"
+    android:targetActivity="dev.codex.nfcswitcher.WalletActivity" />
