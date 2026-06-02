@@ -18,28 +18,53 @@ The app is designed around two modes:
   - outside the app: normal Android NFC tag reading;
   - while NFCswitcher or the wallet picker is open: listen-only emulation mode.
 - Non-root mode for card organization, wallet UI, NDEF reading, and NDEF writing.
-- GitHub Actions build pipeline with downloadable debug APK artifact.
+- GitHub Actions release build pipeline with downloadable APK artifacts.
 
 ## Build
 
 ```bash
-./gradlew :app:assembleDebug
+./gradlew :app:assembleRelease
 ```
 
-The APK will be generated at:
+The APK will be generated under:
 
 ```text
-app/build/outputs/apk/debug/app-debug.apk
+app/build/outputs/apk/release/
 ```
 
-GitHub Actions builds the same target on every push and pull request to `main`.
+GitHub Actions builds the release target on every push and pull request to `main`.
+Tags matching `v*` also publish a GitHub Release.
+
+### Release Signing
+
+Local release signing is supported through environment variables:
+
+```bash
+export NFC_SWITCHER_KEYSTORE=/path/to/nfcswitcher-release.jks
+export NFC_SWITCHER_KEYSTORE_PASSWORD=...
+export NFC_SWITCHER_KEY_ALIAS=nfcswitcher
+export NFC_SWITCHER_KEY_PASSWORD=...
+./gradlew :app:assembleRelease
+```
+
+For GitHub Actions signing, add these repository secrets:
+
+```text
+NFC_SWITCHER_KEYSTORE_BASE64
+NFC_SWITCHER_KEYSTORE_PASSWORD
+NFC_SWITCHER_KEY_ALIAS
+NFC_SWITCHER_KEY_PASSWORD
+```
+
+`NFC_SWITCHER_KEYSTORE_BASE64` must contain the base64-encoded `.jks` file.
+If signing secrets are absent, CI still builds an unsigned release APK artifact.
 
 ## Installation
 
 Install a locally built APK:
 
 ```bash
-adb install -r app/build/outputs/apk/debug/app-debug.apk
+adb install -r app/build/outputs/apk/release/app-release.apk
 ```
 
 Launch:
@@ -133,4 +158,3 @@ Advanced mode intentionally focuses on ordinary NFC/NDEF workflows and diagnosti
 ## License
 
 MIT. See [LICENSE](LICENSE).
-
